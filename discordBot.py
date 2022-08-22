@@ -104,7 +104,7 @@ async def on_message(message):
 		elif message.content=="help" or message.content=="h":
 			await message.channel.send(f"help-h\nversion-v\nshutdown-s\nbalance-b\nstate-c\nforce buy 0\nforce sell")
 		elif message.content=="version" or message.content=="v":
-			await message.channel.send(f"R1.0.1")
+			await message.channel.send(f"R1.0.2")
 		elif message.content=="balance" or message.content=="b":
 			await message.channel.send(Agent.get_total_balance())
 		elif message.content=="state" or message.content=="c": # c di current state
