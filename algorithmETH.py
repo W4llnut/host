@@ -1,5 +1,4 @@
 from numpy import linspace, meshgrid, array, arctan
-import matplotlib.pyplot as plt
 from ta.trend import *
 from ta.momentum import *
 from ta.volatility import *
