@@ -1,0 +1,7 @@
+asyncio
+discord.py==1.7.3
+numpy
+pandas
+requests
+ta==0.10.1
+yfinance==0.1.74
