@@ -60,7 +60,7 @@ class AGENT:
 			k = 0
 			while k<6:
 				sleep(10)
-				flag,costo,tassa,price,volume = self.get_trade_history(ora)
+				flag,costo,tassa,price,volume = self.get_trade_history(self.ora)
 				if flag:
 					self.entrata = price
 					break
@@ -79,7 +79,7 @@ class AGENT:
 			print(output)
 			while True:
 				sleep(10)
-				flag,costo,tassa,price,volume = self.get_trade_history(ora)
+				flag,costo,tassa,price,volume = self.get_trade_history(self.ora)
 				print(flag,costo,tassa,price)
 				if flag:
 					self.entrata = price
@@ -172,7 +172,7 @@ class AGENT:
 			return False,0,0,0,0
 
 	def get_volume(self):
-		flag,costo,tassa,price,volume = self.get_trade_history(time()-600)
+		flag,costo,tassa,price,volume = self.get_trade_history(self.ora)
 		return volume
 
 	def buy_order(self, asset):
