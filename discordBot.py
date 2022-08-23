@@ -105,12 +105,11 @@ async def on_message(message):
 		return
 
 	if message.channel.id==azioniCH:
+		global SESSION
 		if message.content=="shutdown" or message.content=="s":
-			global SESSION
 			SESSION = not SESSION
 			await message.channel.send(f"Execution is now set to {SESSION}")
 		elif message.content=="ss":
-			global SESSION
 			SESSION = -1
 			await client.close()
 		elif message.content=="help" or message.content=="h":
