@@ -72,23 +72,31 @@ async def on_ready():
 
 	await client.get_channel(attivitaCH).send("Starting Connection.")
 	global SESSION
-	while SESSION:
-		try:
-			await asyncio.sleep(10)
-			if check_time():
-				now = datetime.fromtimestamp(time()).strftime("%H:%M")
-				await client.get_channel(attivitaCH).send(f"Connection check({now}).")
-				data = get_data(Agent.currentName)
-				info0 = data[0].iloc[-1]
-				await client.get_channel(datiCH).send(f"{Agent.currentName[0]}:{info0.name}| Open:{info0['Open']}/Low:{info0['Low']}/High:{info0['High']}/Close:{info0['Close']}")
-				flag, r = process_data(data)
-				if flag:
-					await client.get_channel(transazioniCH).send(r)	
-					allowed_mentions = discord.AllowedMentions(everyone = True)
-					await client.get_channel(azioniCH).send(content="@everyone Stock transaction happened.", allowed_mentions=allowed_mentions)
+	while True:
+		if SESSION==True:
+			try:
+				await asyncio.sleep(10)
+				if check_time():
+					now = datetime.fromtimestamp(time()).strftime("%H:%M")
+					await client.get_channel(attivitaCH).send(f"Connection check({now}).")
+					data = get_data(Agent.currentName)
+					info0 = data[0].iloc[-1]
+					await client.get_channel(datiCH).send(f"{Agent.currentName[0]}:{info0.name}| Open:{info0['Open']}/Low:{info0['Low']}/High:{info0['High']}/Close:{info0['Close']}")
+					flag, r = process_data(data)
+					if flag:
+						await client.get_channel(transazioniCH).send(r)	
+						allowed_mentions = discord.AllowedMentions(everyone = True)
+						await client.get_channel(azioniCH).send(content="@everyone Stock transaction happened.", allowed_mentions=allowed_mentions)
 
-		except Exception as e:
-			print(e)
+			except Exception as e:
+				print(e)
+		elif SESSION==False:
+			try:
+				await asyncio.sleep(100)
+			except Exception as e:
+				print(e)
+		elif SESSION==-1:
+			break
 
 
 @client.event
@@ -99,12 +107,19 @@ async def on_message(message):
 	if message.channel.id==azioniCH:
 		if message.content=="shutdown" or message.content=="s":
 			global SESSION
-			SESSION = False
+			SESSION = not SESSION
+			await message.channel.send(f"Execution is now set to {SESSION}")
+		elif message.content=="ss":
+			global SESSION
+			SESSION = -1
 			await client.close()
 		elif message.content=="help" or message.content=="h":
-			await message.channel.send(f"help-h\nversion-v\nshutdown-s\nbalance-b\nstate-c\nforce buy 0\nforce sell")
+			await message.channel.send(f"help-h\nversion-v\nshutdown/execute-s\nbalance-b\nstate-c\nforce buy 0\nforce sell\nenter/exit e")
 		elif message.content=="version" or message.content=="v":
-			await message.channel.send(f"R1.0.2")
+			await message.channel.send(f"R1.0.3")
+		elif message.content=="enter" or message.content=="exit" or message.content=="e":
+			Agent.dentro = not Agent.dentro
+			await message.channel.send(f"Stato corrente aggiornato: dentro={Agent.dentro}")
 		elif message.content=="balance" or message.content=="b":
 			await message.channel.send(Agent.get_total_balance())
 		elif message.content=="state" or message.content=="c": # c di current state
