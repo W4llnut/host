@@ -58,7 +58,7 @@ class AGENT:
 			output = self.buy_order(0)
 
 			k = 0
-			while k<6:
+			while k<8:
 				sleep(10)
 				flag,costo,tassa,price,volume = self.get_trade_history(self.ora)
 				if flag:
