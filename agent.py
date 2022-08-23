@@ -84,8 +84,8 @@ class AGENT:
 				if flag:
 					self.entrata = price
 					break
-
-			self.dentro = True
+			if costo!=0:
+				self.dentro = True
 			self.get_balance()
 			return [True,f"Buy: Crypto:{self.stocks} {self.currentName[self.current]}({costo}*{self.moltiplicatore}={costo*self.moltiplicatore}€) / Balance:{self.money}€ || {output}"]
 		return [False,""]
@@ -178,7 +178,7 @@ class AGENT:
 	def buy_order(self, asset):
 		print(f"{self.currentNameResult[asset]}EUR")
 		volume = self.money/self.get_price()
-		price = self.get_price()+0.01
+		price = self.get_price()-0.01
 		print(">",volume,price)
 		data = {"nonce": str(int(1000*time())),"ordertype": "limit","type": "buy","volume": volume,"pair": f"{self.currentName[asset]}EUR", "price": price, "leverage": self.moltiplicatore, "expiretm": 60}
 		resp = self.kraken_request('/0/private/AddOrder', data)
