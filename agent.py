@@ -182,7 +182,7 @@ class AGENT:
 		volume = self.money/self.get_price()
 		price = self.get_price()
 		print(">",volume,price)
-		data = {"nonce": str(int(1000*time())),"ordertype": "market","type": "buy","volume": volume,"pair": f"{self.currentName[asset]}EUR", "leverage": self.moltiplicatore, "expiretm": 60}
+		data = {"nonce": str(int(1000*time())),"ordertype": "market","type": "buy","volume": volume,"pair": f"{self.currentName[asset]}EUR", "leverage": self.moltiplicatore}
 		resp = self.kraken_request('/0/private/AddOrder', data)
 		return dumps(resp.json())
 
