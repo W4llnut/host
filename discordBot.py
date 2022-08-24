@@ -115,7 +115,7 @@ async def on_message(message):
 		elif message.content=="help" or message.content=="h":
 			await message.channel.send(f"help-h\nversion-v\nshutdown/execute-s\nbalance-b\nstate-c\nforce buy 0\nforce sell\nenter/exit e")
 		elif message.content=="version" or message.content=="v":
-			await message.channel.send(f"R1.0.3")
+			await message.channel.send(f"R1.0.4")
 		elif message.content=="enter" or message.content=="exit" or message.content=="e":
 			Agent.dentro = not Agent.dentro
 			await message.channel.send(f"Stato corrente aggiornato: dentro={Agent.dentro}")
