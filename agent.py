@@ -77,13 +77,15 @@ class AGENT:
 			output = self.buy_order(0)
 
 			print(output)
-			while True:
+			k = 0
+			while k<8:
 				sleep(10)
 				flag,costo,tassa,price,volume = self.get_trade_history(self.ora)
 				print(flag,costo,tassa,price)
 				if flag:
 					self.entrata = price
 					break
+				k += 1
 			if costo!=0:
 				self.dentro = True
 			self.get_balance()
