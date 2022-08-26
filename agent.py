@@ -168,7 +168,7 @@ class AGENT:
 			costo = df["cost"].astype(float).sum()
 			tassa = df["fee"].astype(float).sum()
 			volume = df["vol"].astype(float).sum()
-			price = df["fee"].astype(float).mean()
+			price = df["price"].astype(float).mean()
 			return True,costo,tassa,price,volume
 		else:
 			return False,0,0,0,0
